@@ -29,7 +29,7 @@ export default class VoiceNative extends React.Component {
   }
 
   componentWillUnmount() {
-    //Voice.destroy().then(Voice.removeAllListeners);
+    Voice.destroy().then(Voice.removeAllListeners);
   }
 
   playSoundKiko = () => {
@@ -72,30 +72,22 @@ export default class VoiceNative extends React.Component {
       });
   };
   async startRecognition(e) {
-    console.log("5");
       this.setState({
         recognized: '',
         started: '',
         results: [],
       });
-      console.log("6");
       try {
         await Voice.start('pt-BR');
-        console.log("7");
       } catch (e) {
-        console.log("8");
         console.error(e);
       }
   }
 
   restartRecognition = (e) => {
-    console.log("1");
     Voice.stop();
-    console.log("2");
     this.startRecognition.bind(e);
-    console.log("3");
     this.setState({wordCount: 0, restarted: true});
-    console.log("4");
   }
 
   render () {
@@ -124,14 +116,6 @@ export default class VoiceNative extends React.Component {
 
       this.playSoundKiko();
     }  
-
-    // if(this.state.wordCount > this.state.wordLimit || this.state.restarted){
-    //   startButton = <TouchableOpacity 
-    //   style={styles.button}
-    //   onPress={this.restartRecognition.bind(this)}> 
-    //     <Text style={styles.textButton}>RECOMEÇAR</Text>
-    // </TouchableOpacity>;
-    // }
     
     return (
       <View style={styles.container}>
